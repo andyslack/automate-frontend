@@ -43,10 +43,15 @@
 </template>
 <script>
 import { gapi } from 'gapi-script';
+import { LOGIN } from "@/store/actionType";
 export default {
   data() {
     return {
-      user: null
+      user: null,
+      id_token: "",
+      email: "",
+      photo: "",
+      expires: ""
     };
   },
   mounted() {
@@ -62,11 +67,37 @@ export default {
   },
   methods: {
     onSignIn (user) {
-      const profile = user.getBasicProfile()
-      console.log(profile)
+      // const profile = user.getBasicProfile()
+      console.log("here is the basic profile info", user)
+      this.onSuccess("google", user);
     },
-    onFailure () {
-
+    onFailure () {// Vuex Store
+    },
+    onSuccess(type, data) {
+      switch (type) {
+        case "google": {
+          this.id_token = data.getAuthResponse().id_token;
+          const profile = data.getBasicProfile();
+          this.email = profile.getEmail();
+          this.photo = profile.getImageUrl();
+          console.log("here is the google info: ", this.id_token, this.email, this.photo);
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+      const loginData = {
+        service: type,
+        token: this.id_token,
+        email: this.email,
+        photo: this.photo,
+        expires: this.expires,
+      };
+      this.$store.dispatch(LOGIN, loginData)
+        .then(res => {
+          console.log(res);
+        })
     }
   }
 }
