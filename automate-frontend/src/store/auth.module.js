@@ -4,9 +4,6 @@ import {
 import {
     SUCCESSLOGIN,
     LOGINFAILURE,
-    LOGOUTSUCCCESS,
-    SUCCESSREGISTER,
-    REGISTERFAILURE,
 } from './mutationType';
 import AuthService from '../services/auth.service';
 
