@@ -8499,7 +8499,7 @@ html {
 
 
 .side-nav > ul ul {
-  display: none;
+  /* display: none; */
   --bg-opacity: 1;
   background-color: var(--color-forth);
   color: var(--color-black);

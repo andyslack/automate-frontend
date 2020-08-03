@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-
     <!-- BEGIN: Error Page -->
     <div class="error-page flex flex-col lg:flex-row items-center justify-center h-screen text-center lg:text-left">
         <div class="-intro-x lg:mr-20">
@@ -14,7 +13,6 @@
         </div>
     </div>
     <!-- END: Error Page -->
-
 </div>
 </template>
 

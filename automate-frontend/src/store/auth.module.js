@@ -7,7 +7,7 @@ import {
 } from './mutationType';
 import AuthService from '../services/auth.service';
 
-const user = JSON.parse(localStorage.getItem("user"));
+const user = {};
 
 const initialState = user
   ? { status: {loggedIn: true}, user }

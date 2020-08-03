@@ -6,9 +6,6 @@ import 'vuesax/dist/vuesax.css';
 import 'material-icons/iconfont/material-icons.css';
 import './assets/css/app.css';
 
-// Vuex Store
-// import store from './store/store'
-
 // Vue Router
 import router from './router'
 

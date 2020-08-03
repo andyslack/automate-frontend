@@ -27,6 +27,11 @@ const router = new Router({
             component: () => import('./views/install.vue')
         },
         {
+            path: '/home',
+            name: 'home',
+            component: () => import('./views/dashboard/home.vue')
+        },
+        {
             path: '*',
             name: '404',
             component: () => import('./views/404.vue')

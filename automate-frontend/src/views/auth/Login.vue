@@ -26,10 +26,12 @@
                 </div> -->
 
                 <div id="linkedin-signin" class="mt-4">
-                    <a href="https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=<%=process.env.LINKEDIN_APP_CLIENT_ID%>&redirect_uri=https://app.automate.mn/login&state=aU7)m@73L!n5eD1n&scope=r_liteprofile%20r_emailaddress"><img src="@/assets/img/social/linkedin.png"></a>
+                    <a @click="signLinkedIn"><img src="@/assets/img/social/linkedin.png"></a>
                 </div>
 
-                <div class="error"></div>
+                <div class="error" v-if="error_msg">
+                  <div class="-intro-x mt-10 text-md color-danger">{{error_msg}}</div>
+                </div>
 
                 <div class="-intro-x mt-10 text-md text-black">
                     Register for your <a href="https://automate.mn/join/" class="color-primary" target="_blank">automate account here</a>.
@@ -43,6 +45,7 @@
 </template>
 <script>
 import { gapi } from 'gapi-script';
+import VueCookies from 'vue-cookie'
 import { LOGIN } from "@/store/actionType";
 export default {
   data() {
@@ -51,24 +54,30 @@ export default {
       id_token: "",
       email: "",
       photo: "",
-      expires: ""
+      expires: "",
+      error_msg: "",
+      linkedIn: {
+        service: 'none'
+      },
     };
+  },
+  created() {
   },
   mounted() {
     gapi.signin2.render('my-signin2', {
-    //   scope: "profile email",
+      scope: "profile email",
       width: 240,
       height: 50,
       longtitle: true,
       theme: 'dark',
       onsuccess: this.onSignIn,
       onfailure: this.onFailure
-    })
+    });
+    this.linkedInCheck();
   },
   methods: {
     onSignIn (user) {
-      // const profile = user.getBasicProfile()
-      console.log("here is the basic profile info", user)
+      console.log("here is the user", user)
       this.onSuccess("google", user);
     },
     onFailure () {// Vuex Store
@@ -80,7 +89,6 @@ export default {
           const profile = data.getBasicProfile();
           this.email = profile.getEmail();
           this.photo = profile.getImageUrl();
-          console.log("here is the google info: ", this.id_token, this.email, this.photo);
           break;
         }
         default: {
@@ -96,8 +104,22 @@ export default {
       };
       this.$store.dispatch(LOGIN, loginData)
         .then(res => {
-          console.log(res);
-        })
+          console.log("here is the response", res);
+          if (res.status === 200) {
+            VueCookies.set("AUTO_AUTH", res.data);
+            this.$router.push("/home");
+          } else if (res.status === 401) {
+            this.error_msg = 'User not found, please create a new account.';
+          } else {
+            this.error_msg = `Error: ${res.status} ${res.responseText}`
+          }
+        });
+    },
+    linkedInCheck() {
+
+    },
+    signLinkedIn() {
+      window.location.href = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=93r29maplxr58u&redirect_uri=http://localhost:3000/login&state=aU7)m@73L!n5eD1n&scope=r_liteprofile%20r_emailaddress`;
     }
   }
 }

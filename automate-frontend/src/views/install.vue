@@ -70,7 +70,6 @@
               </div>
             </div>
           </div>
-          <!-- END: Logging -->
         </div>
       </div>
     </div>
