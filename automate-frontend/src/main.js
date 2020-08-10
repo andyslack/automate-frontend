@@ -5,6 +5,7 @@ import VueCookie from 'vue-cookie';
 import 'vuesax/dist/vuesax.css';
 import 'material-icons/iconfont/material-icons.css';
 import './assets/css/app.css';
+import 'feather-icons'
 
 // Vue Router
 import router from './router'

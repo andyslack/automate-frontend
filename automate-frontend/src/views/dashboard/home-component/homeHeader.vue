@@ -134,11 +134,15 @@ export default {
       isEmail: false,
     };
   },
+  mounted() {
+    if (`${this.$router.currentRoute.name}`.includes('email')) {
+      this.isEmail = true;
+    }
+  },
   computed: {},
   methods: {
       clickEmailMenu() {
         this.isEmail = !this.isEmail;
-        console.log("here")
       }
   }
 };

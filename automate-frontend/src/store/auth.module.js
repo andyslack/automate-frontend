@@ -7,7 +7,7 @@ import {
 } from './mutationType';
 import AuthService from '../services/auth.service';
 
-const user = {};
+const user = localStorage.getItem('user');
 
 const initialState = user
   ? { status: {loggedIn: true}, user }
@@ -22,7 +22,6 @@ const actions = {
     return AuthService.login(user)
     .then(res => {
       if (res) {
-        console.log("login response:", res);
         context.commit(SUCCESSLOGIN, res);
         return Promise.resolve(res);
       } else {
@@ -36,9 +35,9 @@ const actions = {
 }
 
 const mutations = {
-  [SUCCESSLOGIN](state, user) {
+  [SUCCESSLOGIN](state, response) {
     state.initialState.status.loggedIn = true;
-    state.initialState.user = user.data;
+    state.initialState.user = response.data.user;
   },
   [LOGINFAILURE](state) {
     state.initialState.status.loggedIn = false;
@@ -46,15 +45,8 @@ const mutations = {
   },
 }
 
-const getters = {
-  permission(state) {
-    return state && state.initialState.user.user.role;
-  }
-}
-
 export default {
   state,
   actions,
   mutations,
-  getters
 }
