@@ -3,6 +3,11 @@ import dashboard from './dashboard.module'
 import email from './email.module'
 import user from './user.module'
 import reports from './reports.module'
+import account from './account.module'
+import notification from './notification.module'
+import credwordpress from './credwordpress.module'
+import task from './task.module'
+import billing from './billing.module'
 import Vue from 'vue'
 import Vuex from 'vuex'
 import createLogger from 'vuex/dist/logger';
@@ -18,7 +23,12 @@ export default new Vuex.Store({
       dashboard,
       email,
       user,
-      reports
+      reports,
+      account,
+      notification,
+      credwordpress,
+      billing,
+      task
     },
     strict: debug,
     plugins

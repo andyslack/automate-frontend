@@ -81,6 +81,60 @@ const router = new Router({
             ]
         },
         {
+            path: '/account',
+            name: '',
+            component: () => import("./views/dashboard/blank.vue"),
+            children: [
+                {
+                    path: '',
+                    name: 'account',
+                    component: () => import("./views/dashboard/account/overview.vue")
+                },
+                {
+                    path: 'websites',
+                    name: 'websites',
+                    component: () => import("./views/dashboard/blank.vue"),
+                    children: [{
+                        path: 'creds/:website_id',
+                        name: 'creds',
+                        component: () => import("./views/dashboard/account/websites/credsWordpress.vue")
+                    }]
+                },
+                {
+                    path: 'users',
+                    name: 'users',
+                    component: () => import("./views/dashboard/account/users.vue")
+                },
+                {
+                    path: 'billing',
+                    name: 'billing',
+                    component: () => import("./views/dashboard/blank.vue"),
+                    children: [
+                        {
+                            path: '',
+                            name: 'account-billing',
+                            component: () => import("./views/dashboard/account/billing.vue")
+                        },
+                        {
+                            path: 'transaction/:transaction_id',
+                            name: 'transaction',
+                            component: () => import("./views/dashboard/account/transaction.vue")
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            path: "/subscription/:subscription_id",
+            name: "subscription",
+            component: () => import("./views/dashboard/subscription/subscription-detail.vue")
+        },
+        {
+            path: "/task/:task_id",
+            name: "task",
+            component: () => import("./views/dashboard/tasks/task-detail.vue")
+        },
+        {
             path: '*',
             name: '404',
             component: () => import('./views/404.vue')

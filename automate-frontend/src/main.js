@@ -7,6 +7,8 @@ import 'material-icons/iconfont/material-icons.css';
 import './assets/css/app.css';
 import 'feather-icons'
 
+// Globally Registered Components
+import './custom.js'
 // Vue Router
 import router from './router'
 
@@ -15,11 +17,8 @@ import store from './store/store'
 
 Vue.config.productionTip = false
 
-Vue.use(
-  Vuesax,
-  VueCookie, {
-  // options here
-})
+Vue.use(Vuesax, {});
+Vue.use(VueCookie);
 
 new Vue({
   router: router,

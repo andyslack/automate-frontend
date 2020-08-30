@@ -1,7 +1,7 @@
 import UserService from "../services/user.service";
 
 import { 
-  INSTALLUSER
+  INSTALLUSER, UPDATEUSER
 } from './actionType';
 
 import {
@@ -9,7 +9,7 @@ import {
 } from './mutationType'
 
 const state = {
-  installUser: {}
+  installUser: {},
 }
 
 const actions = {
@@ -21,13 +21,21 @@ const actions = {
       }, error => {
         return new Promise.reject(error);
       });
+  },
+  [UPDATEUSER](context, data) {
+    return UserService.updateUser(data)
+      .then(res => {
+        return Promise.resolve(res);
+      }, error => {
+        return new Promise.reject(error);
+      })
   }
 }
 
 const mutations = {
   [SUCCESSINSTALLUSER](data) {
     state.installUser = data;
-  }
+  },
 }
 
 export default {

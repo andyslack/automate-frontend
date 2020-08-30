@@ -2,7 +2,6 @@
   <!-- BEGIN: Account Menu -->
   <div class="intro-x dropdown w-8 h-8 relative">
     <div
-      @click="toggleDrop()"
       class="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in"
     >
       <img
@@ -11,12 +10,12 @@
         class="rounded-full"
         :src="user.user_photo"
       />
-      <img
+      <img v-else-if="user.user_fname"
         :alt="user.user_fname+' '+user.user_lname"
         class="rounded-full"
         :src="apiUrl + '/avatars/' + getfirst() + '.png'"
       />
-      <!-- <img v-else alt="Account" class="rounded-full" :src="apiUrl + '/avatars/blank.png'"> -->
+      <img v-else alt="Account" class="rounded-full" :src="apiUrl + '/avatars/blank.png'">
     </div>
     <div
       class="dropdown-box mt-10 absolute w-56 top-0 right-0 z-20"

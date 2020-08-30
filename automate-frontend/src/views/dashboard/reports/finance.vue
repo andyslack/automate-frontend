@@ -45,6 +45,7 @@
 
                     <div class="intro-y box col-span-12">
                         <div class="p-5">
+                          <profitability></profitability>
                         </div>
                     </div>
 
@@ -54,6 +55,7 @@
 
             <!-- START: Profitability Pane -->
             <div v-if="activeTab === 'byTransaction'" :class="{'active': activeTab === 'byTransaction'}" class="tab-content__pane" id="byTransaction">
+              <byTransaction :transactions="transactions"></byTransaction>
             </div>
             <!-- END: Profitability Pane -->
 
@@ -67,7 +69,8 @@
 import homeHeader from "../home-component/homeHeader";
 import homeSearch from "../home-component/homeSearch";
 import homeAccount from "../home-component/homeAccount";
-import { GETACTIVETABDATA } from "../../../store/actionType";
+import profitability from "./finace/profitability";
+import byTransaction from "./finace/byTransaction";
 import {
   ChevronRightIcon,
   RefreshCcwIcon
@@ -78,31 +81,22 @@ export default {
     homeSearch,
     homeAccount,
     ChevronRightIcon,
-    RefreshCcwIcon
+    RefreshCcwIcon,
+    profitability,
+    byTransaction
   },
   data() {
     return {
       activeTab: "profitability",
+      profitability: {},
+      transactions: [], 
     }
   },
   mounted() {
-    this.getTabData();
   },
   methods: {
-    getTabData() {
-      const sendingdata = {
-        activeTab: this.activeTab
-      }
-      this.$store.dispatch(GETACTIVETABDATA, sendingdata)
-        .then(res => {
-          if (res.status === 200) {
-            console.log(res.data)
-          }
-        })
-    },
     toggleTab(activeTab) {
       this.activeTab = activeTab;
-      this.getTabData();
     }
   }
 }
